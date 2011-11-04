@@ -5,7 +5,7 @@ module AgentOrange
     attr_accessor :type, :name, :version
 
     PLATFORMS = {
-      :android => 'android',
+      :android => 'android|Android',
       :apple => 'iphone|ipad|ipod',
       :mac => 'macintosh',
       :pc => 'freebsd|linux|netbsd|windows|x11'
@@ -55,6 +55,8 @@ module AgentOrange
         else
           AgentOrange::Version.new("Unknown")
         end
+      elsif self.type == :android
+        self.version = nil
       else
         self.version = nil
       end

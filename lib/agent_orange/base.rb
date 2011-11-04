@@ -36,7 +36,10 @@ module AgentOrange
       # Determine type
       type = nil
       types.each do |key, value|
-        type = key if content =~ /(#{value})/i
+        if content =~ /(#{value})/i
+          type = key 
+          break
+        end
       end
       type = "other" if type.nil?
       type

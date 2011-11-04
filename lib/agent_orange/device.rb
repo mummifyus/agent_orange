@@ -12,8 +12,8 @@ module AgentOrange
     attr_accessor :engine
 
     DEVICES = {
-      :computer => 'windows|macintosh|x11|linux',
       :mobile => 'ipod|ipad|iphone|palm|android|opera mini|hiptop|windows ce|smartphone|mobile|treo|psp',
+      :computer => 'windows|macintosh|x11|linux',
       :bot => 'bot|googlebot|crawler|spider|robot|crawling'
     }
 
@@ -25,6 +25,7 @@ module AgentOrange
         if content[:comment] =~ /(#{DEVICES.collect{|cat,regex| regex}.join(')|(')})/i
           # Matched group against name
           self.populate(content)
+          break
         end
       end
 
@@ -38,7 +39,6 @@ module AgentOrange
     def populate(content={})
       self.debug_raw_content(content)
       AgentOrange.debug "", 2
-
       self.type = self.determine_type(DEVICES, content[:comment])
       self.name = self.type.to_s.capitalize
       self.version = nil
